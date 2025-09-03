@@ -1,0 +1,120 @@
+##### ─────────────────────────────────────────────────────────────────────────
+#####  ZSH CONFIG
+##### ─────────────────────────────────────────────────────────────────────────
+
+# ── Powerlevel10k instant prompt (must stay near top) ────────────────────────
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ── Theme and prompt config ──────────────────────────────────────────────────
+# Load Powerlevel10k theme (fast). Keep above most other plugins.
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# Load personal p10k config if present.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# ── Homebrew environment early (ensures tools are on PATH before compinit) ───
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# ── Core shell options & history ─────────────────────────────────────────────
+setopt prompt_subst                 # Allow parameter expansion in prompt
+setopt share_history                # Share history across shells
+setopt hist_ignore_all_dups         # Drop older duplicates
+setopt hist_reduce_blanks           # Remove superfluous blanks
+setopt hist_verify                  # Edit before running history expansion
+setopt inc_append_history           # Write commands as they are entered
+HISTFILE="$HOME/.zhistory"
+SAVEHIST=100000                     # Keep plenty of history
+HISTSIZE=100000
+
+# ── Keymaps & completion ─────────────────────────────────────────────────────
+bindkey -e                           # Emacs-style bindings (default); change to -v for vi
+# Arrow-up/down: search history by prefix
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+# Initialize completion system
+autoload -Uz compinit && compinit -u
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select
+
+# ── Plugins (source after compinit for best results) ─────────────────────────
+# Autosuggestions should load before syntax highlighting; highlighting should be last.
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# ── Node (NVM) ───────────────────────────────────────────────────────────────
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+# ── GitHub Copilot CLI aliases ───────────────────────────────────────────────
+if command -v github-copilot-cli >/dev/null 2>&1; then
+  eval "$(github-copilot-cli alias -- '$0')"
+fi
+
+# ── pnpm ─────────────────────────────────────────────────────────────────────
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# ── Path hygiene (dedupe) ────────────────────────────────────────────────────
+# Remove duplicate path entries to keep `which` and completion snappy.
+typeset -gU PATH path fpath
+
+# ── iTerm2 (optional) ────────────────────────────────────────────────────────
+[[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
+
+# ── Aliases ──────────────────────────────────────────────────────────────────
+# Edit & reload .zshrc
+alias change='nvim ~/.zshrc'
+alias update='source ~/.zshrc'
+# Git: checkout recent branch via fzf + delta preview
+alias cbr='git branch --sort=-committerdate | fzf --header "Checkout Recent Branch" --preview "git diff {1} --color=always | delta" --pointer="" | xargs git checkout'
+# TLDR with fzf browser
+alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
+# Weather (Frankfurt)
+alias wetter='curl wttr.in/frankfurt'
+# Eza (better ls)
+alias ls='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
+# Zoxide (better cd)
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+  alias cd='z'  # jump by frecency
+fi
+# Convert first .iso/.cue -> .chd in current dir
+alias convert2chd='file=$(find . -maxdepth 1 -type f \( -name "*.iso" -o -name "*.cue" \) | head -n 1); if [[ -n "$file" ]]; then chdman createcd -i "$file" -o "${file%.*}.chd"; echo "Converted: $file -> ${file%.*}.chd"; else echo "No .iso or .cue file found."; fi'
+
+# ── FZF defaults (use fd for fast search; keep previews snappy) ──────────────
+export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type=d --hidden --strip-cwd-prefix --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# fzf completion: use fd provider
+_fzf_compgen_path() { fd --hidden --exclude .git . "$1" }
+_fzf_compgen_dir()  { fd --type=d --hidden --exclude .git . "$1" }
+
+# Context-aware fzf previews
+_fzf_comprun() {
+  local command=$1; shift
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo $'{}"               "$@" ;;
+    ssh)          fzf --preview 'dig {}'                         "$@" ;;
+    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+  esac
+}
+
+# ── Misc quality-of-life ─────────────────────────────────────────────────────
+# Accept autosuggestion with Ctrl-Space (optional)
+bindkey '^ ' autosuggest-accept
+# Make `bat` the default pager if present (nice with git)
+if command -v bat >/dev/null 2>&1; then
+  export PAGER=bat
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# ── Fin ──────────────────────────────────────────────────────────────────────
