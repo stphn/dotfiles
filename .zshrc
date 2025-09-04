@@ -85,7 +85,77 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 # Convert first .iso/.cue -> .chd in current dir
 alias convert2chd='file=$(find . -maxdepth 1 -type f \( -name "*.iso" -o -name "*.cue" \) | head -n 1); if [[ -n "$file" ]]; then chdman createcd -i "$file" -o "${file%.*}.chd"; echo "Converted: $file -> ${file%.*}.chd"; else echo "No .iso or .cue file found."; fi'
+#
+# tarit: create one archive per selected path.
+# Usage:
+#   tarit [-z|-J|-s] [PATH ...]
+#     -z  -> .tar.gz (gzip)
+#     -J  -> .tar.xz (xz)
+#     -s  -> .tar.zst (zstd via 'zstd' binary)
+tarit() {
+  local opt comp_flag="" ext=".tar"
+  # Parse optional compression flag
+  while getopts ":zJs" opt; do
+    case "$opt" in
+      z) comp_flag="gz"  ; ext=".tar.gz" ;;
+      J) comp_flag="xz"  ; ext=".tar.xz" ;;
+      s) comp_flag="zst" ; ext=".tar.zst" ;;
+      *) ;;
+    esac
+  done
+  shift $((OPTIND-1))
 
+  # Collect items: either from args or via fzf picker
+  local -a items
+  if [ "$#" -gt 0 ]; then
+    items=("$@")
+  else
+    # fzf picker (single or multi-select with TAB)
+    if command -v fd >/dev/null 2>&1; then
+      # Use fd if available (fast)
+      if fzf --version >/dev/null 2>&1 && fzf --help 2>&1 | grep -q -- '--print0'; then
+        IFS=$'\n' read -r -d '' -a items < <(fd -H -t f -t d . | fzf -m --print0; printf '\0')
+      else
+        IFS=$'\n' read -r -d '' -a items < <(fd -H -t f -t d . | fzf -m; printf '\0')
+      fi
+    else
+      # Fallback to find
+      if fzf --version >/dev/null 2>&1 && fzf --help 2>&1 | grep -q -- '--read0'; then
+        IFS=$'\n' read -r -d '' -a items < <(find . -mindepth 1 -maxdepth 1 \( -type f -o -type d \) -print0 | fzf -m --read0 --print0; printf '\0')
+      else
+        IFS=$'\n' read -r -d '' -a items < <(find . -mindepth 1 -maxdepth 1 \( -type f -o -type d \) | fzf -m; printf '\0')
+      fi
+    fi
+  fi
+
+  # No selection -> bail
+  if [ "${#items[@]}" -eq 0 ]; then
+    echo "tarit: nothing selected." >&2
+    return 1
+  fi
+
+  # Archive each item separately
+  local item base out
+  for item in "${items[@]}"; do
+    # Strip any trailing slash to form base name
+    base="${item%/}"
+    out="${base}${ext}"
+
+    # Choose tar flags based on compression
+    case "$comp_flag" in
+      gz)  echo "→ $out"; tar -czvf "$out" "$item" ;;
+      xz)  echo "→ $out"; tar -cJvf "$out" "$item" ;;
+      zst)
+        if ! command -v zstd >/dev/null 2>&1; then
+          echo "tarit: zstd not found; install it or use -z/-J." >&2
+          return 2
+        fi
+        echo "→ $out"; tar --use-compress-program=zstd -cvf "$out" "$item"
+        ;;
+      *)   echo "→ $out"; tar -cvf "$out" "$item" ;;
+    esac
+  done
+}
 # ── FZF defaults (use fd for fast search; keep previews snappy) ──────────────
 export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -96,6 +166,14 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 # fzf completion: use fd provider
 _fzf_compgen_path() { fd --hidden --exclude .git . "$1" }
 _fzf_compgen_dir()  { fd --type=d --hidden --exclude .git . "$1" }
+
+# fzf keybindings and completion
+if [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+fi
+if [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
 
 # Context-aware fzf previews
 _fzf_comprun() {
