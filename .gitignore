@@ -1,0 +1,34 @@
+# -------------------------
+# Generic noise
+# -------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.un~
+*.bak
+
+# -------------------------
+# Neovim (all configs)
+# -------------------------
+# Ignore plugin directories created by package managers (Lazy, Packer, etc.)
+.config/*/plugin/
+.config/*/pack/
+
+# Lazy.nvim lockfile (optional: keep if you want reproducible plugin versions)
+.config/*/lazy-lock.json
+
+# Ignore cache/state dirs if ever symlinked by mistake
+.local/
+.cache/
+.state/
+
+# Ignore Treesitter parser builds (not needed in repo)
+.config/*/parser/
+
+# Ignore LSP server binaries if Mason ever writes inside config
+.config/*/mason/
+
+# Ignore undofiles, swapfiles, session files
+.config/*/undo/
+.config/*/session/
