@@ -27,7 +27,7 @@ Each config lives in its own package so I can symlink only what I need.
 Clone into `~/dotfiles` and use **stow** to symlink:
 
 ```bash
-git clone git@github.com:yourname/dotfiles.git ~/dotfiles
+git clone git@github.com:stphn/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # stow what you want
