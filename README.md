@@ -15,10 +15,10 @@ Each config lives in its own package so I can symlink only what I need.
 
 ## 💻 Tools
 
-- [`.zshrc`](./zsh/.zshrc) — zsh shell config
-- [`.tmux.conf`](./tmux/.tmux.conf) — tmux config
-- [`.wezterm.lua`](./wezterm/.wezterm.lua) — WezTerm terminal setup
-- [`.aerospace.toml`](./aerospace/.aerospace.toml) — [Aerospace](https://github.com/nikitabobko/AeroSpace) tiling window manager config
+- [`.zshrc`](.zshrc) — zsh shell config
+- [`.tmux.conf`](.tmux.conf) — tmux config
+- [`.wezterm.lua`](.wezterm.lua) — WezTerm terminal setup
+- [`.aerospace.toml`](.aerospace.toml) — [Aerospace](https://github.com/nikitabobko/AeroSpace) tiling window manager config
 
 ---
 
