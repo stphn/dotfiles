@@ -2,8 +2,6 @@
 
 ## List of files
 
-- [Actual NeoVim configuration](nvim) - My actual LazyVim configuration
-- [nvimJosean](nvimJosean) - Josea nvim configuration file
-- [SKHD](skhd) - My skhd settings
-- [Yabai](yabai) - My yabai settings
-- [Sketchybar](sketchybar) - My sketchybar settings
+- [Actual NeoVim configuration](nvim) - My actual NeoVim configuration
+- [The Neovim Kickstarter](kickstart) - The NeoVim Kickstarter
+- [LazyVim](LazyVim) - The LazyVim
