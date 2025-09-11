@@ -32,3 +32,5 @@ Thumbs.db
 # Ignore undofiles, swapfiles, session files
 .config/*/undo/
 .config/*/session/
+# Ignore agent files
+AGENTS.md
