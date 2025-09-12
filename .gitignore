@@ -34,3 +34,4 @@ Thumbs.db
 .config/*/session/
 # Ignore agent files
 AGENTS.md
+**/lazy-lock.json
