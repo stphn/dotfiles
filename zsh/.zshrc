@@ -116,7 +116,7 @@ function nvims() {
   NVIM_APPNAME=$config nvim $@
 }
 
-bindkey -s ^a "nvims\n"
+#bindkey -s ^a "nvims\n"
 
 alias change='nvim ~/.zshrc'
 alias update='source ~/.zshrc'
