@@ -53,7 +53,9 @@ export NVM_DIR="$HOME/.nvm"
 if command -v github-copilot-cli >/dev/null 2>&1; then
   eval "$(github-copilot-cli alias -- '$0')"
 fi
+# ----- Bat (better cat) -----
 
+export BAT_THEME='Nord'
 # ── pnpm ─────────────────────────────────────────────────────────────────────
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -69,7 +71,7 @@ typeset -gU PATH path fpath
 # Edit & reload .zshrc
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
-# alias nvim="NVIM_APPNAME=LazyVim nvim"
+alias n="nvim"
 
 function nvims() {
   items=("default" "kickstart" "LazyVim")
@@ -95,6 +97,8 @@ alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-win
 alias wetter='curl wttr.in/frankfurt'
 # Eza (better ls)
 alias ls='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
+alias tree='eza --tree --level=3 --git --color=always --icons=always'
+alias lsa='eza --color=always --long --git --all --icons=always --no-filesize --no-time --no-user --no-permissions'
 # Zoxide (better cd)
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
