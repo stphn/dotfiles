@@ -104,7 +104,7 @@ alias gc='git commit -v'
 alias gcm='git commit -m'
 alias gcmnv='git commit --no-verify -m'
 alias gcanenv='git commit --amend --no-edit --no-verify'
-alias gcc='git add -A && claude "Analyze the staged git changes and generate a concise, descriptive commit message following conventional commit format"'
+alias gcc='git add -A && claude "Analyze the staged git changes and generate a concise, descriptive commit message following conventional commit format and do not add created by claude etc. stay concise "'
 function nvims() {
   items=("default" "kickstart" "LazyVim")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
