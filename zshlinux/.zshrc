@@ -35,34 +35,44 @@ export NVM_DIR="$HOME/.nvm"
 # Bat (better cat) theme configuration
 export BAT_THEME="Nord"
 
-# FZF (fuzzy finder) configuration
-export FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.git/*' 2>/dev/null"
+# FZF (fuzzy finder) configuration - enhanced for better performance
+export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="find . -type d -not -path '*/\.git/*' 2>/dev/null"
+export FZF_ALT_C_COMMAND='fd --type=d --hidden --strip-cwd-prefix --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # ============================================================================
 # HISTORY CONFIGURATION
 # ============================================================================
 # Configure shell history behavior
-HISTFILE=$HOME/.zhistory    # History file location
-SAVEHIST=1000              # Number of commands to save in history file
-HISTSIZE=999               # Number of commands to remember in current session
+HISTFILE="$HOME/.zhistory"     # History file location
+SAVEHIST=100000                # Keep plenty of history
+HISTSIZE=100000                # Number of commands to remember in current session
 
 # History options for better management
-setopt share_history           # Share history between sessions
-setopt hist_expire_dups_first  # Remove duplicates first when trimming history
-setopt hist_ignore_dups        # Don't record duplicate commands
-setopt hist_verify             # Show command with history expansion before running
+setopt share_history              # Share history across shells
+setopt hist_ignore_all_dups       # Drop older duplicates
+setopt hist_reduce_blanks         # Remove superfluous blanks
+setopt hist_verify                # Edit before running history expansion
+setopt inc_append_history         # Write commands as they are entered
 
 # ============================================================================
-# KEY BINDINGS
+# SHELL OPTIONS & KEY BINDINGS
 # ============================================================================
+# Core shell options
+setopt prompt_subst                 # Allow parameter expansion in prompt
+
 # Enable history search with arrow keys
 bindkey '^[[A' history-search-backward  # Up arrow
 bindkey '^[[B' history-search-forward   # Down arrow
 
-# Custom key binding for Neovim config switcher
-bindkey -s ^a "nvims\n"  # Ctrl+A opens nvims function
+# Emacs-style bindings (change to -v for vi mode)
+bindkey -e
+
+# Accept autosuggestion with Ctrl-Space
+bindkey '^ ' autosuggest-accept
+
 
 # ============================================================================
 # ALIASES - SYSTEM COMMANDS
@@ -94,7 +104,7 @@ alias wootility='~/AppImages/wootility/squashfs-root/AppRun'  # Wootility launch
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"      # LazyVim config
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"    # Kickstart config
 # alias nvim="NVIM_APPNAME=LazyVim nvim"          # Default to LazyVim (commented)
-
+alias n="nvim"                             # vim points to nvim
 # ============================================================================
 # FUNCTIONS
 # ============================================================================
@@ -112,30 +122,28 @@ function nvims() {
 }
 
 # FZF completion functions for better file/directory previews
-_fzf_compgen_path() {
-  find "$1" -type f -not -path '*/\.git/*' 2>/dev/null
-}
-
-_fzf_compgen_dir() {
-  find "$1" -type d -not -path '*/\.git/*' 2>/dev/null
-}
+_fzf_compgen_path() { fd --hidden --exclude .git . "$1" }
+_fzf_compgen_dir()  { fd --type=d --hidden --exclude .git . "$1" }
 
 # Advanced FZF customization with command-specific previews
 _fzf_comprun() {
-  local command=$1
-  shift
-
+  local command=$1; shift
   case "$command" in
     cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+    export|unset) fzf --preview "eval 'echo $'{}"               "$@" ;;
+    ssh)          fzf --preview 'dig {}'                         "$@" ;;
+    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
   esac
 }
 
 # ============================================================================
 # EXTERNAL TOOL INITIALIZATION
 # ============================================================================
+# Initialize completion system
+autoload -Uz compinit && compinit -u
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select
+
 # Load Node Version Manager if available
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
@@ -147,6 +155,9 @@ eval "$(zoxide init zsh)"
 
 # Load FZF Git integration
 source ~/fzf-git.sh/fzf-git.sh
+
+# Path hygiene (dedupe) - Remove duplicate path entries
+typeset -gU PATH path fpath
 
 # ============================================================================
 # ZSH PLUGINS AND ENHANCEMENTS
