@@ -100,6 +100,32 @@ alias fd='fd'                     # Fast find alternative
 # Application shortcuts
 alias wootility='~/AppImages/wootility/squashfs-root/AppRun'  # Wootility launcher
 
+# Git workflow aliases
+alias gcc='git add -A && claude "Analyze the staged git changes and generate a concise, descriptive commit message following conventional commit format and do not add created by claude etc. stay concise "'
+alias g='git'
+alias ga='git add'
+alias gf='git fetch'
+alias gst='git status'                     # Use gst instead of gs to avoid ghostscript conflict
+alias gss='git status -s'
+alias gup='git fetch && git rebase'
+alias gl='git pull'
+alias glo='git pull origin'
+alias gb='git branch'
+alias gbr='git branch -r'
+alias gd='git diff'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gre='git remote'
+alias gres='git remote show'
+alias glgg='git log --graph --max-count=5 --decorate --pretty="oneline"'
+alias gm='git merge'
+alias gp='git push'
+alias gpo='git push origin'
+alias gc='git commit -v'
+alias gcm='git commit -m'
+alias gcmnv='git commit --no-verify -m'
+alias gcanenv='git commit --amend --no-edit --no-verify'
+
 # Neovim configuration switcher aliases
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"      # LazyVim config
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"    # Kickstart config
