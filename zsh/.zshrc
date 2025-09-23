@@ -117,7 +117,8 @@ function nvims() {
   fi
   NVIM_APPNAME=$config nvim $@
 }
-
+# put mac to sleep
+alias snow='pmset sleepnow'
 #bindkey -s ^a "nvims\n"
 
 alias change='nvim ~/.zshrc'
