@@ -72,6 +72,7 @@ typeset -gU PATH path fpath
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
 alias n="nvim"
+alias obs='cd "/Users/stephane/Library/Mobile Documents/iCloud~md~obsidian/Documents/s" && nvim'
 
 alias g='git'
 alias ga='git add'

@@ -222,3 +222,9 @@ automatically-unhide-macos-hidden-apps = false
 [[on-window-detected]]
     if.app-id = 'com.microsoft.teams2'
     run = ['layout floating', 'move-node-to-workspace T']  # The callback itself
+[[on-window-detected]]
+    if.app-id = 'app.zen-browser.zen'
+    run = ['move-node-to-workspace Z']  # The callback itself
+[[on-window-detected]]
+    if.app-id = 'com.github.wez.wezterm'
+    run = ['move-node-to-workspace W']  # The callback itself
