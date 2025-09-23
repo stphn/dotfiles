@@ -49,7 +49,7 @@ require('lazy').setup({
   -- require 'plugins.avante',
   -- require 'plugins.oil',
   -- require 'plugins.aerial',
-  -- require 'plugins.vim-tmux-navigator',
+  require 'plugins.vim-tmux-navigator',
   -- require 'plugins.debug',
   -- require 'plugins.database',
 }, {
