@@ -19,10 +19,11 @@ z = "Zen"
 o = "Obsidian"
 
 
-# Zen browser new tab search
+# New content
 [n]
-label = "[new Zen tab]"
+label = "[new]"
 t = "hs:hs.application.launchOrFocus('Zen'); hs.timer.doAfter(0.2, function() hs.eventtap.keyStroke({'cmd'}, 't') end)"
+n = "hs:hs.application.launchOrFocus('Obsidian'); hs.timer.doAfter(0.5, function() hs.eventtap.keyStroke({'cmd'}, 'n') end)"
 
 
 # Hammerspoon management
