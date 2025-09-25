@@ -14,31 +14,16 @@ key_maps_per_line = 3     # number of key maps per line
 
 # Quick app access
 t = "Wezterm"
-s = "Slack"
 m = "Mail"
-z = "Zen Browser"
+z = "Zen"
+o = "Obsidian"
 
-# Work-related URLs
-[k]
-label = "[work]"
-g = "https://github.com"
-j = "https://jira.company.com"
-c = "https://confluence.company.com"
 
-# Development tools
-[d]
-label = "[dev]"
-g = ["https://github.com", "GitHub"]
-d = ["https://docs.github.com", "GitHub Docs"]
-s = ["https://stackoverflow.com", "Stack Overflow"]
+# Zen browser new tab search
+[n]
+label = "[new Zen tab]"
+t = "hs:hs.application.launchOrFocus('Zen'); hs.timer.doAfter(0.2, function() hs.eventtap.keyStroke({'cmd'}, 't') end)"
 
-# Window management
-[w]
-label = "[window]"
-h = "window:left-half"
-l = "window:right-half"
-c = "window:center-half"
-f = "window:maximized"
 
 # Hammerspoon management
 [h]
