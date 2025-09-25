@@ -1,0 +1,47 @@
+#################################################
+# Work configuration for Hammerflow
+# This configuration is prioritized over sample.toml
+# when loaded in init.lua
+#################################################
+
+# settings
+leader_key = "f18"        # leader key that starts the sequence
+leader_key_mods = ""      # optional modifiers
+auto_reload = true        # reload when config files change
+toast_on_reload = false   # show toast on reload
+show_ui = true            # show the UI with key maps
+key_maps_per_line = 3     # number of key maps per line
+
+# Quick app access
+t = "Wezterm"
+s = "Slack"
+m = "Mail"
+z = "Zen Browser"
+
+# Work-related URLs
+[k]
+label = "[work]"
+g = "https://github.com"
+j = "https://jira.company.com"
+c = "https://confluence.company.com"
+
+# Development tools
+[d]
+label = "[dev]"
+g = ["https://github.com", "GitHub"]
+d = ["https://docs.github.com", "GitHub Docs"]
+s = ["https://stackoverflow.com", "Stack Overflow"]
+
+# Window management
+[w]
+label = "[window]"
+h = "window:left-half"
+l = "window:right-half"
+c = "window:center-half"
+f = "window:maximized"
+
+# Hammerspoon management
+[h]
+label = "[hammerspoon]"
+c = "code: ~/.hammerspoon"
+r = "reload"

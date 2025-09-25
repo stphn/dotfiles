@@ -19,8 +19,8 @@ spoon.Hammerflow.registerFormat({
 })
 
 spoon.Hammerflow.loadFirstValidTomlFile({
-	-- "home.toml",
-	-- "work.toml",
+	"home.toml",
+	"work.toml",
 	"Spoons/Hammerflow.spoon/sample.toml",
 })
 -- optionally respect auto_reload setting in the toml config.
