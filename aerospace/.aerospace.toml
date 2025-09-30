@@ -1,6 +1,13 @@
+# ╭─────────────────────────────────────────────────────────────╮
+# │                    🚀 AeroSpace Configuration                │
+# │              macOS Tiling Window Manager                    │
+# ╰─────────────────────────────────────────────────────────────╯
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+# ┌─────────────────────────────────────────────────────────────┐
+# │                      ⚡ Startup Settings                     │
+# └─────────────────────────────────────────────────────────────┘
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = []
@@ -8,10 +15,16 @@ after-startup-command = []
 # Start AeroSpace at login
 start-at-login = true
 
-# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+# ┌─────────────────────────────────────────────────────────────┐
+# │                    🔧 Normalization Settings                │
+# └─────────────────────────────────────────────────────────────┘
+# See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
+# ┌─────────────────────────────────────────────────────────────┐
+# │                     🎨 Layout Configuration                 │
+# └─────────────────────────────────────────────────────────────┘
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
@@ -25,11 +38,13 @@ default-root-container-layout = 'tiles'
 #               tall monitor (anything higher than wide) gets vertical orientation
 default-root-container-orientation = 'auto'
 
+# ┌─────────────────────────────────────────────────────────────┐
+# │                    🖱️  Mouse & Focus Behavior               │
+# └─────────────────────────────────────────────────────────────┘
 # Mouse follows focus when focused monitor changes
 # Drop it from your config, if you don't like this behavior
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-# Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
@@ -37,19 +52,24 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+# ┌─────────────────────────────────────────────────────────────┐
+# │                    ⌨️  Keyboard Layout                      │
+# └─────────────────────────────────────────────────────────────┘
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
     preset = 'qwerty'
 
+# ┌─────────────────────────────────────────────────────────────┐
+# │                      🪟 Window Gaps                         │
+# └─────────────────────────────────────────────────────────────┘
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
 # - Constant:     gaps.outer.top = 8
 # - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
 #                 In this example, 24 is a default value when there is no match.
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
-#                 See:
-#                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
     inner.horizontal = 10
     inner.vertical =   10
@@ -58,72 +78,74 @@ automatically-unhide-macos-hidden-apps = false
     outer.top =        10
     outer.right =      10
 
+# ╭─────────────────────────────────────────────────────────────╮
+# │                   ⌨️  KEYBINDING CONFIGURATION              │
+# ╰─────────────────────────────────────────────────────────────╯
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
 
-    # All possible keys:
-    # - Letters.        a, b, c, ..., z
-    # - Numbers.        0, 1, 2, ..., 9
-    # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
-    # - F-keys.         f1, f2, ..., f20
-    # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
-    #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
-    #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
-    #                   sectionSign (ISO keyboards only, european keyboards only)
-    # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
-    #                   keypadMinus, keypadMultiply, keypadPlus
-    # - Arrows.         left, down, up, right
-
-    # All possible modifiers: cmd, alt, ctrl, shift
-
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │  📋 Key Reference:                                           │
+    # │  • Letters:    a-z                                          │
+    # │  • Numbers:    0-9, keypad0-9                               │
+    # │  • F-keys:     f1-f20                                       │
+    # │  • Special:    minus, equal, period, comma, slash, etc.     │
+    # │  • Arrows:     left, down, up, right                        │
+    # │  • Modifiers:  cmd, alt, ctrl, shift                        │
+    # └─────────────────────────────────────────────────────────────┘
     # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-    # You can uncomment the following lines to open up terminal with alt + enter shortcut
-    # (like in i3)
-    # alt-enter = '''exec-and-forget osascript -e '
-    # tell application "Terminal"
-    #     do script
-    #     activate
-    # end tell'
-    # '''
-
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                      🎛️  Layout Controls                    │
+    # └─────────────────────────────────────────────────────────────┘
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#focus
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                   🧭 Window Navigation                      │
+    # └─────────────────────────────────────────────────────────────┘
+    # QWERTY navigation (hjkl)
     alt-h = 'focus left'
     alt-j = 'focus down'
     alt-k = 'focus up'
     alt-l = 'focus right'
 
-    # colemak support
+    # Colemak navigation (neio)
     alt-n = 'focus left'
     alt-e = 'focus down'
     alt-i = 'focus up'
     alt-o = 'focus right'
 
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                    🚚 Window Movement                       │
+    # └─────────────────────────────────────────────────────────────┘
+    # QWERTY movement (hjkl)
     alt-shift-h = 'move left'
     alt-shift-j = 'move down'
     alt-shift-k = 'move up'
     alt-shift-l = 'move right'
-    # colemak support
+
+    # Colemak movement (neio)
     alt-shift-n = 'move left'
     alt-shift-e = 'move down'
     alt-shift-i = 'move up'
     alt-shift-o = 'move right'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                     📏 Window Resizing                      │
+    # └─────────────────────────────────────────────────────────────┘
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                 🏢 Workspace Navigation                     │
+    # └─────────────────────────────────────────────────────────────┘
+    # Numbered workspaces
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
     alt-3 = 'workspace 3'
@@ -133,26 +155,31 @@ automatically-unhide-macos-hidden-apps = false
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
     alt-9 = 'workspace 9'
-    alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
-    alt-b = 'workspace B'
-    alt-c = 'workspace C'
-    alt-d = 'workspace D'
-    alt-f = 'workspace F'
-    alt-g = 'workspace G'
-    alt-m = 'workspace M'
-    alt-p = 'workspace P'
-    alt-q = 'workspace Q'
-    alt-r = 'workspace R'
-    alt-s = 'workspace S'
-    alt-t = 'workspace T'
-    alt-u = 'workspace U'
-    alt-v = 'workspace V'
-    alt-w = 'workspace W'
-    alt-x = 'workspace X'
-    alt-y = 'workspace Y'
-    alt-z = 'workspace Z'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    # Named workspaces (A-Z)
+    alt-a = 'workspace A'    # 📱 Apps
+    alt-b = 'workspace B'    # 🌐 Browser
+    alt-c = 'workspace C'    # 💬 Chat
+    alt-d = 'workspace D'    # 📊 Data
+    alt-f = 'workspace F'    # 📁 Files
+    alt-g = 'workspace G'    # 🎮 Games
+    alt-m = 'workspace M'    # 🎵 Music
+    alt-p = 'workspace P'    # 🎨 Photo
+    alt-q = 'workspace Q'    # ❓ Quick
+    alt-r = 'workspace R'    # 📖 Read
+    alt-s = 'workspace S'    # ⚙️  System
+    alt-t = 'workspace T'    # 👥 Teams
+    alt-u = 'workspace U'    # 🔧 Utils
+    alt-v = 'workspace V'    # 📹 Video
+    alt-w = 'workspace W'    # 💻 Work
+    alt-x = 'workspace X'    # ❌ Extra
+    alt-y = 'workspace Y'    # 📝 Notes
+    alt-z = 'workspace Z'    # 🚀 Zen
+
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                📦 Move Window to Workspace                 │
+    # └─────────────────────────────────────────────────────────────┘
+    # Move to numbered workspaces
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
     alt-shift-3 = 'move-node-to-workspace 3'
@@ -162,14 +189,14 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
     alt-shift-9 = 'move-node-to-workspace 9'
+
+    # Move to named workspaces
     alt-shift-a = 'move-node-to-workspace A'
     alt-shift-b = 'move-node-to-workspace B'
     alt-shift-c = 'move-node-to-workspace C'
     alt-shift-d = 'move-node-to-workspace D'
-
     alt-shift-f = 'move-node-to-workspace F'
     alt-shift-g = 'move-node-to-workspace G'
-
     alt-shift-p = 'move-node-to-workspace P'
     alt-shift-q = 'move-node-to-workspace Q'
     alt-shift-r = 'move-node-to-workspace R'
@@ -182,49 +209,63 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-y = 'move-node-to-workspace Y'
     alt-shift-z = 'move-node-to-workspace Z'
 
-    # toggle fullscreen
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                  🎯 Special Actions                         │
+    # └─────────────────────────────────────────────────────────────┘
+    # Toggle fullscreen
     alt-shift-m = 'fullscreen'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+    # Workspace navigation
     alt-tab = 'workspace-back-and-forth'
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#mode
+    # Enter service mode for advanced operations
     alt-shift-semicolon = 'mode service'
 
-# 'service' binding mode declaration.
+# ╭─────────────────────────────────────────────────────────────╮
+# │                   🛠️  SERVICE MODE BINDINGS                 │
+# ╰─────────────────────────────────────────────────────────────╯
+# Advanced operations mode - Enter with alt-shift-;
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-    esc = ['reload-config', 'mode main']
-    r = ['flatten-workspace-tree', 'mode main'] # reset layout
-    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-    backspace = ['close-all-windows-but-current', 'mode main']
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                   ⚡ System Operations                      │
+    # └─────────────────────────────────────────────────────────────┘
+    esc = ['reload-config', 'mode main']           # 🔄 Reload config
+    r = ['flatten-workspace-tree', 'mode main']     # 🗂️  Reset layout
+    f = ['layout floating tiling', 'mode main']     # 🎈 Toggle floating
+    backspace = ['close-all-windows-but-current', 'mode main']  # 🗑️  Close others
 
-    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-    #s = ['layout sticky tiling', 'mode main']
-
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │                    🔗 Window Joining                        │
+    # └─────────────────────────────────────────────────────────────┘
+    # QWERTY joining (hjkl)
     alt-shift-h = ['join-with left', 'mode main']
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
-    # colemak support
+
+    # Colemak joining (neio)
     alt-shift-n = ['join-with left', 'mode main']
     alt-shift-e = ['join-with down', 'mode main']
     alt-shift-i = ['join-with up', 'mode main']
     alt-shift-o = ['join-with right', 'mode main']
 
-    down = 'volume down'
-    up = 'volume up'
-    shift-down = ['volume set 0', 'mode main']
 
+
+# ╭─────────────────────────────────────────────────────────────╮
+# │                🎯 APPLICATION AUTO-ASSIGNMENT               │
+# ╰─────────────────────────────────────────────────────────────╯
+# Automatically move applications to specific workspaces
+
+[[on-window-detected]]
+    if.app-id = 'com.github.wez.wezterm'
+    run = ['move-node-to-workspace W']            # 💻 Terminal → W (Work)
+
+[[on-window-detected]]
+    if.app-id = 'app.zen-browser.zen'
+    run = ['move-node-to-workspace Z']            # 🚀 Browser → Z (Zen)
 
 [[on-window-detected]]
     if.app-id = 'com.microsoft.teams2'
-    run = ['layout floating', 'move-node-to-workspace T']  # The callback itself
-[[on-window-detected]]
-    if.app-id = 'app.zen-browser.zen'
-    run = ['move-node-to-workspace Z']  # The callback itself
-[[on-window-detected]]
-    if.app-id = 'com.github.wez.wezterm'
-    run = ['move-node-to-workspace W']  # The callback itself
+    run = ['layout floating', 'move-node-to-workspace T']  # 👥 Teams → T (floating)

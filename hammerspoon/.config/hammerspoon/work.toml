@@ -15,19 +15,44 @@ key_maps_per_line = 3     # number of key maps per line
 # Quick app access
 t = "Wezterm"
 m = "Mail"
-z = "Zen"
 o = "Obsidian"
+h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard history"]
+b = "Brave Browser"
+c = "ChatGPT"
 
 
 # New content
 [n]
 label = "[new]"
-t = "hs:hs.application.launchOrFocus('Zen'); hs.timer.doAfter(0.2, function() hs.eventtap.keyStroke({'cmd'}, 't') end)"
-n = "hs:hs.application.launchOrFocus('Obsidian'); hs.timer.doAfter(0.5, function() hs.eventtap.keyStroke({'cmd'}, 'n') end)"
+n = ["hs:hs.application.launchOrFocus('Obsidian'); hs.timer.doAfter(0.5, function() hs.eventtap.keyStroke({'cmd'}, 'n') end)", "new note"]
 
 
-# Hammerspoon management
-[h]
-label = "[hammerspoon]"
-c = "code: ~/.hammerspoon"
-r = "reload"
+# Text pasting
+[i]
+label = "[me]"
+m = ["hs:hs.pasteboard.setContents('s.goeuriot@cosnova.com'); hs.eventtap.keyStroke({'cmd'}, 'v')", "mail"]
+p = ["hs:hs.pasteboard.setContents('new4stphn!'); hs.eventtap.keyStroke({'cmd'}, 'v')", "pass"]
+
+
+# Web apps
+[w]
+label = "[web]"
+m = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://mastodon.social/share?text=\" --window-size=600,800')", "mastodon share"]
+b = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://bsky.app/intent/compose?text=\" --window-size=600,800')", "bluesky share"]
+
+
+# Post mode
+[p]
+label = "[post]"
+b = ["hs:hs.execute('open -a \"Chromium\" --args --app=\"https://bsky.app/intent/compose\" --no-first-run --disable-session-crashed-bubble --disable-infobars --disable-default-apps --disable-translate --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --window-size=800,600')", "bluesky post"]
+m = ["hs:hs.execute('open -a \"Chromium\" --args --app=\"https://mastodon.social/share\" --no-first-run --disable-session-crashed-bubble --disable-infobars --disable-default-apps --disable-translate --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --window-size=800,600')", "mastodon post"]
+
+
+# Raycast shortcuts
+[r]
+label = "[raycast]"
+c = ["raycast://extensions/raycast/raycast/confetti", "confetti"]
+e = ["raycast://extensions/raycast/emoji-symbols/search-emoji-symbols", "emoji"]
+h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard history"]
+f = ["raycast://extensions/raycast/system/hide-all-apps-except-frontmost", "hide all except frontmost"]
+u = ["raycast://extensions/raycast/system/unhide-all-hidden-apps", "unhide all apps"]
