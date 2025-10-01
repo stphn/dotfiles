@@ -5,54 +5,40 @@
 #################################################
 
 # settings
-leader_key = "f18"        # leader key that starts the sequence
-leader_key_mods = ""      # optional modifiers
+leader_key = "f18"       # leader key that starts the sequence
+leader_key_mods = ""     # optional modifiers
 auto_reload = true        # reload when config files change
 toast_on_reload = false   # show toast on reload
 show_ui = true            # show the UI with key maps
-key_maps_per_line = 3     # number of key maps per line
+key_maps_per_line = 4     # number of key maps per line
 
 # Quick app access
-t = "Wezterm"
-m = "Mail"
-o = "Obsidian"
-h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard history"]
-b = "Brave Browser"
-c = "ChatGPT"
-
-
-# New content
-[n]
-label = "[new]"
-n = ["hs:hs.application.launchOrFocus('Obsidian'); hs.timer.doAfter(0.5, function() hs.eventtap.keyStroke({'cmd'}, 'n') end)", "new note"]
+t = ["Wezterm", "terminal"]
+m = ["Mail", "mail"]
+n = ["Obsidian", "notes"]
+h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard"]
+b = ["Brave Browser", "browser"]
+c = ["ChatGPT", "chat"]
+f = ["Finder", "files"]
 
 
 # Text pasting
 [i]
-label = "[me]"
+label = "me"
 m = ["hs:hs.pasteboard.setContents('s.goeuriot@cosnova.com'); hs.eventtap.keyStroke({'cmd'}, 'v')", "mail"]
 p = ["hs:hs.pasteboard.setContents('new4stphn!'); hs.eventtap.keyStroke({'cmd'}, 'v')", "pass"]
 
-
-# Web apps
-[w]
-label = "[web]"
-m = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://mastodon.social/share?text=\" --window-size=600,800')", "mastodon share"]
-b = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://bsky.app/intent/compose?text=\" --window-size=600,800')", "bluesky share"]
-
-
 # Post mode
 [p]
-label = "[post]"
-b = ["hs:hs.execute('open -a \"Chromium\" --args --app=\"https://bsky.app/intent/compose\" --no-first-run --disable-session-crashed-bubble --disable-infobars --disable-default-apps --disable-translate --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --window-size=800,600')", "bluesky post"]
-m = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://mastodon.social/share?text=\" --window-size=800,600')", "mastodon post"]
-
+label = "post"
+b = ["hs:hs.execute('open -a \"Bluesky\"')", "bluesky"]
+m = ["hs:hs.execute('open -a \"Mastodon\"')", "mastodon"]
 
 # Raycast shortcuts
 [r]
-label = "[raycast]"
+label = "raycast"
 c = ["raycast://extensions/raycast/raycast/confetti", "confetti"]
 e = ["raycast://extensions/raycast/emoji-symbols/search-emoji-symbols", "emoji"]
-h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard history"]
-f = ["raycast://extensions/raycast/system/hide-all-apps-except-frontmost", "hide all except frontmost"]
-u = ["raycast://extensions/raycast/system/unhide-all-hidden-apps", "unhide all apps"]
+h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard"]
+f = ["raycast://extensions/raycast/system/hide-all-apps-except-frontmost", "hide others"]
+u = ["raycast://extensions/raycast/system/unhide-all-hidden-apps", "unhide all"]
