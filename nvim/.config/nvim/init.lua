@@ -45,7 +45,6 @@ require('lazy').setup({
   require 'plugins.gitsigns',
   require 'plugins.misc',
   require 'plugins.harpoon',
-  require 'plugins.copilot',
   -- require 'plugins.avante',
   -- require 'plugins.oil',
   -- require 'plugins.aerial',

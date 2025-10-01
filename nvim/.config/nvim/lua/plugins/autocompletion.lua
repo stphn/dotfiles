@@ -15,13 +15,6 @@ return { -- Autocompletion
         return 'make install_jsregexp'
       end)(),
     },
-    {
-      'zbirenbaum/copilot-cmp',
-      dependencies = { 'zbirenbaum/copilot.lua' },
-      config = function()
-        require('copilot_cmp').setup()
-      end,
-    },
     'saadparwaiz1/cmp_luasnip',
 
     -- Adds other completion capabilities.
@@ -129,17 +122,10 @@ return { -- Autocompletion
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'path' },
-        { name = 'copilot' },
       },
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
-          -- Add custom icon for Copilot
-          if entry.source.name == 'copilot' then
-            vim_item.kind = ''
-            vim_item.kind_hl_group = 'CmpItemKindCopilot'
-            return vim_item
-          end
           -- Kind icons
           vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
           -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
@@ -148,7 +134,6 @@ return { -- Autocompletion
             luasnip = '[Snippet]',
             buffer = '[Buffer]',
             path = '[Path]',
-            copilot = '[copilot]',
           })[entry.source.name]
           return vim_item
         end,

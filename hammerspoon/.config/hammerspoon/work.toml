@@ -45,7 +45,7 @@ b = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://bsky.app/inten
 [p]
 label = "[post]"
 b = ["hs:hs.execute('open -a \"Chromium\" --args --app=\"https://bsky.app/intent/compose\" --no-first-run --disable-session-crashed-bubble --disable-infobars --disable-default-apps --disable-translate --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --window-size=800,600')", "bluesky post"]
-m = ["hs:hs.execute('open -a \"Chromium\" --args --app=\"https://mastodon.social/share\" --no-first-run --disable-session-crashed-bubble --disable-infobars --disable-default-apps --disable-translate --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --window-size=800,600')", "mastodon post"]
+m = ["hs:hs.execute('open -na \"Chromium\" --args --app=\"https://mastodon.social/share?text=\" --window-size=800,600')", "mastodon post"]
 
 
 # Raycast shortcuts

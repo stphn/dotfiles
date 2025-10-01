@@ -16,7 +16,8 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-
+export EDITOR=nvim
+export VISUAL=nvim
 # ── Core shell options & history ─────────────────────────────────────────────
 setopt prompt_subst                 # Allow parameter expansion in prompt
 setopt share_history                # Share history across shells
