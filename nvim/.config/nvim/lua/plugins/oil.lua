@@ -53,6 +53,10 @@ return {
   },
   config = function(_, opts)
     require('oil').setup(opts)
-    vim.keymap.set('n', '-', '<cmd>Oil<CR>', { noremap = true, silent = true })
+    -- Quick access
+    vim.keymap.set('n', '-', '<cmd>Oil<CR>', { noremap = true, silent = true, desc = 'Open oil file browser' })
+    -- Leader menu keybinds
+    vim.keymap.set('n', '<leader>fo', '<cmd>Oil<CR>', { noremap = true, silent = true, desc = '[F]ile browser with [O]il' })
+    vim.keymap.set('n', '<leader>fv', '<cmd>Oil --float<CR>', { noremap = true, silent = true, desc = '[F]ile browser (oil float [V]iew)' })
   end,
 }
