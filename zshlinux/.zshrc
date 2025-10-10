@@ -17,8 +17,7 @@ fi
 # PROMPT AND THEME
 # ============================================================================
 # Load Powerlevel10k theme for enhanced prompt
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # Load Powerlevel10k configuration
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -90,15 +89,17 @@ alias ezatree='eza --tree --level=3 -a'  # Tree view with 3 levels
 
 # Better versions of common commands
 alias cd="z"                      # Use zoxide for smarter cd
-alias cat='batcat'                # Use bat for syntax highlighting
-alias bat='batcat'                # Alternative bat alias
+alias cat='bat'                # Use bat for syntax highlighting
 alias fd='fd'                     # Fast find alternative
 
 # ============================================================================
 # ALIASES - APPLICATION SPECIFIC
 # ============================================================================
-# Application shortcuts
-alias wootility='~/AppImages/wootility/squashfs-root/AppRun'  # Wootility launcher
+
+# Printing aliases
+alias epson='lp -d EPSON_ET_8550_Series'
+alias txt2pdf='enscript -B -p'
+alias fzfprint='fd --type f --hidden --exclude .git | fzf --preview "bat --color=always {}" | xargs -r lp -d EPSON_ET_8550_Series'
 
 # Git workflow aliases
 alias gcc='git add -A && claude "Analyze the staged git changes and generate a concise, descriptive commit message following conventional commit format and do not add created by claude etc. stay concise "'
@@ -189,11 +190,13 @@ typeset -gU PATH path fpath
 # ZSH PLUGINS AND ENHANCEMENTS
 # ============================================================================
 # Load zsh-autosuggestions for command completion based on history
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Load zsh-syntax-highlighting for command syntax highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ============================================================================
 # END OF CONFIGURATION
 # ============================================================================
+
+. "$HOME/.local/share/../bin/env"
