@@ -13,12 +13,13 @@ show_ui = true            # show the UI with key maps
 key_maps_per_line = 4     # number of key maps per line
 
 # Quick app access
+a = ["ChatGPT", "ai"]
 t = ["Wezterm", "terminal"]
 m = ["Mail", "mail"]
 n = ["Obsidian", "notes"]
 h = ["raycast://extensions/raycast/clipboard-history/clipboard-history", "clipboard"]
 b = ["Brave Browser", "browser"]
-c = ["ChatGPT", "chat"]
+c = ["raycast://extensions/thomas/color-picker/pick-color", "color picker"]
 f = ["Finder", "files"]
 
 
