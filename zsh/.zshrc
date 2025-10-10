@@ -135,7 +135,7 @@ alias wetter='curl wttr.in/frankfurt'
 # Eza (better ls)
 alias ls='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
 alias tree='eza --tree --level=3 --git --color=always --icons=always'
-alias lsa='eza --color=always --long --git --all --icons=always --no-filesize --no-time --no-user --no-permissions'
+alias la='eza --color=always --long --git --all --icons=always --no-filesize --no-time --no-user --no-permissions'
 # Zoxide (better cd)
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"

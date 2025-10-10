@@ -46,7 +46,7 @@ require('lazy').setup({
   require 'plugins.misc',
   require 'plugins.harpoon',
   -- require 'plugins.avante',
-  -- require 'plugins.oil',
+  require 'plugins.oil',
   -- require 'plugins.aerial',
   require 'plugins.vim-tmux-navigator',
   -- require 'plugins.debug',
