@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(stow:*)"
+      "Bash(stow:*)",
+      "WebFetch(domain:deepwiki.com)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Read(//Users/stephane/dev/**)",
+      "Bash(/Users/stephane/.local/bin/tte fireworks -h)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": [],
     "ask": []

@@ -35,6 +35,7 @@ Thumbs.db
 # Ignore agent files
 AGENTS.md
 **/lazy-lock.json
-
+.claude
+CLAUDE.md
 # Vim session files
 .session.vim

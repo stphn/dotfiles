@@ -143,6 +143,13 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 # Convert first .iso/.cue -> .chd in current dir
 alias convert2chd='file=$(find . -maxdepth 1 -type f \( -name "*.iso" -o -name "*.cue" \) | head -n 1); if [[ -n "$file" ]]; then chdman createcd -i "$file" -o "${file%.*}.chd"; echo "Converted: $file -> ${file%.*}.chd"; else echo "No .iso or .cue file found."; fi'
+
+# ── Screensaver ───────────────────────────────────────────────────────────────
+alias screensaver='/Users/stephane/dev/ascii-screensaver/launch_smooth.sh'
+alias screensaver-debug='/Users/stephane/dev/ascii-screensaver/launch_debug.sh'
+alias keymap-draw='/Users/stephane/.local/bin/keymap'
+alias keymap-parse='/Users/stephane/.local/bin/keymap parse'
+alias planck-regen='cd /Users/stephane/dev/planck-layout && keymap-parse -q planck/rev7 keymap/keymap.c > keymap-generated.yaml && keymap-draw draw keymap-generated.yaml -o planck-auto.svg && echo "Generated: keymap-generated.yaml and planck-auto.svg"'
 #
 # tarit: create one archive per selected path.
 # Usage:
@@ -255,3 +262,8 @@ if command -v bat >/dev/null 2>&1; then
 fi
 
 # ── Fin ──────────────────────────────────────────────────────────────────────
+
+# Created by `pipx` on 2025-10-10 15:27:33
+export PATH="$PATH:/Users/stephane/.local/bin"
+eval "$(direnv hook zsh)"
+export PATH="$HOME/.local/bin:$PATH"
