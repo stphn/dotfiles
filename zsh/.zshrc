@@ -2,6 +2,7 @@
 #####  ZSH CONFIG
 ##### ─────────────────────────────────────────────────────────────────────────
 # ── Powerlevel10k instant prompt (must stay near top) ────────────────────────
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -11,7 +12,6 @@ fi
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # Load personal p10k config if present.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
 # ── Homebrew environment early (ensures tools are on PATH before compinit) ───
 if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -73,8 +73,9 @@ typeset -gU PATH path fpath
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
 alias n="nvim"
-alias obs='cd "/Users/stephane/Library/Mobile Documents/iCloud~md~obsidian/Documents/s" && nvim'
-
+alias desktop-off='defaults write com.apple.finder CreateDesktop false && killall Finder'
+alias desktop-on='defaults write com.apple.finder CreateDesktop true && killall Finder'
+alias desktop-status='defaults read com.apple.finder CreateDesktop'
 alias g='git'
 alias ga='git add'
 alias gafzf='git ls-files -m -o --exclude-standard | grep -v "__pycache__" | fzf -m --print0 | xargs -0 -o -t git add' # Git add with fzf
@@ -267,3 +268,67 @@ fi
 export PATH="$PATH:/Users/stephane/.local/bin"
 eval "$(direnv hook zsh)"
 export PATH="$HOME/.local/bin:$PATH"
+
+# Arduino CLI shortcuts
+alias arduino-cli='/Applications/Arduino\ IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli --config-file ~/.arduinoIDE/arduino-cli.yaml'
+alias arduino-compile='arduino-cli compile --fqbn arduino:avr:uno'
+alias arduino-boards='arduino-cli board list'
+
+# Helper function to auto-detect Arduino port
+_arduino_port() {
+  arduino-cli board list | grep 'arduino:avr:uno' | awk '{print $1}'
+}
+
+# Upload with auto-detected port
+arduino-upload() {
+  local port=$(_arduino_port)
+  if [ -z "$port" ]; then
+    echo "Error: No Arduino Uno found. Please connect your board."
+    return 1
+  fi
+  arduino-cli upload -p "$port" --fqbn arduino:avr:uno "${1:-.}"
+}
+
+# Monitor with auto-detected port
+arduino-monitor() {
+  local port=$(_arduino_port)
+  if [ -z "$port" ]; then
+    echo "Error: No Arduino Uno found. Please connect your board."
+    return 1
+  fi
+  arduino-cli monitor -p "$port" "$@"
+}
+
+# Arduino workspace shortcut
+alias arduino-workspace='code ~/Documents/Arduino/arduino-projects.code-workspace'
+
+# Arduino Neovim development - launch tmux session
+alias arduino='~/Documents/Arduino/arduino-dev.sh'
+
+# Short Arduino commands (for tmux right pane)
+ac() { arduino-compile "${1:-.}"; }
+au() { arduino-upload "${1:-.}"; }
+af() { arduino-compile "${1:-.}" && arduino-upload "${1:-.}"; }
+am() {
+  local baud="${1:-9600}"
+  local port=$(_arduino_port)
+  if [ -z "$port" ]; then
+    echo "Error: No Arduino Uno found. Please connect your board."
+    return 1
+  fi
+  local project=$(basename "$PWD")
+  # Find logs directory (look up from current directory)
+  local logs_dir="$PWD"
+  while [[ "$logs_dir" != "/" && ! -d "$logs_dir/logs" ]]; do
+    logs_dir=$(dirname "$logs_dir")
+  done
+  if [[ -d "$logs_dir/logs" ]]; then
+    logs_dir="$logs_dir/logs"
+  else
+    logs_dir="$PWD"
+  fi
+  local logfile="${logs_dir}/${project}-$(date +%Y%m%d-%H%M%S).log"
+  echo "Logging to: $logfile (Port: $port, Baud: $baud)"
+  arduino-cli monitor -p "$port" --config baudrate="$baud" | tee "$logfile"
+}
+ab() { arduino-boards; }

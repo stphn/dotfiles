@@ -103,5 +103,6 @@ return {
     vim.filetype.add { extension = { tfvars = 'terraform' } }
     vim.filetype.add { extension = { pipeline = 'groovy' } }
     vim.filetype.add { extension = { multibranch = 'groovy' } }
+    vim.filetype.add { extension = { mjml = 'html' } }
   end,
 }

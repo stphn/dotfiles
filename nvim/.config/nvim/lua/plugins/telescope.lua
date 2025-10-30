@@ -25,29 +25,16 @@ return {
           horizontal = { prompt_position = 'bottom', preview_width = 0.6 },
         },
         mappings = {
-          -- INSERT: QWERTY + Colemak
           i = {
-            ['<C-k>'] = actions.move_selection_previous, -- QWERTY up
-            ['<C-j>'] = actions.move_selection_next, -- QWERTY down
-            ['<C-l>'] = actions.select_default, -- QWERTY open
-
-            ['<C-i>'] = actions.move_selection_previous, -- Colemak up
-            ['<C-e>'] = actions.move_selection_next, -- Colemak down
-            ['<C-o>'] = actions.select_default, -- Colemak open
-
-            ['<CR>'] = actions.select_default, -- always allow Enter
+            ['<C-k>'] = actions.move_selection_previous,
+            ['<C-j>'] = actions.move_selection_next,
+            ['<CR>'] = actions.select_default,
           },
-          -- NORMAL: QWERTY + Colemak (NO 'n' to quit)
           n = {
-            ['q'] = actions.close, -- quit (both layouts)
-
-            ['j'] = actions.move_selection_next, -- QWERTY down
-            ['k'] = actions.move_selection_previous, -- QWERTY up
-            ['l'] = actions.select_default, -- QWERTY open
-
-            ['e'] = actions.move_selection_next, -- Colemak down
-            ['i'] = actions.move_selection_previous, -- Colemak up
-            ['o'] = actions.select_default, -- Colemak open
+            ['q'] = actions.close,
+            ['j'] = actions.move_selection_next,
+            ['k'] = actions.move_selection_previous,
+            ['<CR>'] = actions.select_default,
           },
         },
       },
@@ -62,18 +49,9 @@ return {
           mappings = {
             n = {
               ['d'] = actions.delete_buffer,
-
-              -- QWERTY
               ['j'] = actions.move_selection_next,
               ['k'] = actions.move_selection_previous,
-              ['l'] = actions.select_default,
-
-              -- Colemak
-              ['e'] = actions.move_selection_next,
-              ['i'] = actions.move_selection_previous,
-              ['o'] = actions.select_default,
-
-              -- quit on q (no 'n')
+              ['<CR>'] = actions.select_default,
               ['q'] = actions.close,
             },
           },

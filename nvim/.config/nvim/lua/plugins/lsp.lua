@@ -121,6 +121,16 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        -- Format on save for LSP servers that support formatting (like clangd)
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = event.buf,
+            callback = function()
+              vim.lsp.buf.format { async = false }
+            end,
+          })
+        end
       end,
     })
 
@@ -139,6 +149,18 @@ return {
     -- - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     -- - settings (table): Override the default settings passed when initializing the server.
     local servers = {
+      clangd = {
+        -- Arduino C++ support
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=iwyu',
+          '--completion-style=detailed',
+          '--function-arg-placeholders=true',
+        },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'ino', 'arduino' },
+      },
       lua_ls = {
         settings = {
           Lua = {
@@ -202,7 +224,7 @@ return {
       docker_compose_language_service = {},
       -- tailwindcss = {},
       -- graphql = {},
-      html = { filetypes = { 'html', 'twig', 'hbs' } },
+      html = { filetypes = { 'html', 'twig', 'hbs', 'mjml' } },
       ts_ls = {
         -- optional: prefer external formatter (Prettier/Biome) instead of tsserver’s formatting
         -- on new Neovim this is off by default; leaving empty is fine
@@ -220,6 +242,13 @@ return {
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
     })
+
+    -- Setup mason-lspconfig bridge
+    require('mason-lspconfig').setup {
+      ensure_installed = vim.tbl_keys(servers),
+      automatic_installation = true,
+    }
+
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     for server, cfg in pairs(servers) do

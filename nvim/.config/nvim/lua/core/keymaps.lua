@@ -43,7 +43,7 @@ vim.keymap.set('n', '<S-Down>', ':resize +2<CR>', { desc = 'Resize split down' }
 vim.keymap.set('n', '<S-Left>', ':vertical resize -2<CR>', { desc = 'Resize split left' })
 vim.keymap.set('n', '<S-Right>', ':vertical resize +2<CR>', { desc = 'Resize split right' })
 
--- Navigate also with arrows for Colemak D-H
+-- Navigate with arrows
 vim.keymap.set('n', '<left>', 'h')
 vim.keymap.set('n', '<down>', 'j')
 vim.keymap.set('n', '<up>', 'k')
@@ -66,22 +66,22 @@ vim.keymap.set('n', '<leader>h', '<C-w>s', { noremap = true, silent = true, desc
 vim.keymap.set('n', '<leader>se', '<C-w>=', { noremap = true, silent = true, desc = 'Equal splits' })
 vim.keymap.set('n', '<leader>xs', ':close<CR>', { noremap = true, silent = true, desc = 'Close split' })
 
--- Navigate between splits
+-- Navigate between splits (hjkl + arrows)
 vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
 vim.keymap.set('n', '<C-j>', ':wincmd j<CR>', opts)
 vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', opts)
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
 
--- ── Jump list (moved off <C-o>/<C-i>) ────────────────────────────────────────
-vim.keymap.set('n', '<leader>o', '<C-o>', { desc = 'Jump back', silent = true })
-vim.keymap.set('n', '<leader>i', '<C-i>', { desc = 'Jump fwd', silent = true })
+vim.keymap.set('n', '<C-Up>', ':wincmd k<CR>', opts)
+vim.keymap.set('n', '<C-Down>', ':wincmd j<CR>', opts)
+vim.keymap.set('n', '<C-Left>', ':wincmd h<CR>', opts)
+vim.keymap.set('n', '<C-Right>', ':wincmd l<CR>', opts)
 
--- ── Colemak home-row split navigation (normal mode only) ────────────────────
--- left / down / up / right
-vim.keymap.set('n', '<C-n>', '<C-w>h', { desc = 'Win left', silent = true })
-vim.keymap.set('n', '<C-e>', '<C-w>j', { desc = 'Win down', silent = true })
-vim.keymap.set('n', '<C-i>', '<C-w>k', { desc = 'Win up', silent = true })
-vim.keymap.set('n', '<C-o>', '<C-w>l', { desc = 'Win right', silent = true })
+-- Native Vim commands restored:
+-- <C-o> = Jump back in jump list
+-- <C-i> = Jump forward in jump list
+-- <C-u> = Scroll half page up
+-- <C-d> = Scroll half page down (already mapped with centering at line 33)
 
 -- Tabs
 vim.keymap.set('n', '<leader>to', ':tabnew<CR>', { noremap = true, silent = true, desc = 'New tab' })
@@ -95,10 +95,6 @@ vim.keymap.set('n', '<leader>lw', '<cmd>set wrap!<CR>', { noremap = true, silent
 -- Press jk fast to exit insert mode
 vim.keymap.set('i', 'jk', '<ESC>', opts)
 vim.keymap.set('i', 'kj', '<ESC>', opts)
-
--- Colemak-friendly fast exit insert mode (home row fingers)
-vim.keymap.set('i', 'ne', '<ESC>', opts)
-vim.keymap.set('i', 'en', '<ESC>', opts)
 
 -- Stay in indent mode
 vim.keymap.set('v', '<', '<gv', opts)

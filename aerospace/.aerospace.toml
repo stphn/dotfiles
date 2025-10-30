@@ -10,7 +10,7 @@
 # └─────────────────────────────────────────────────────────────┘
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = ['layout tiles']
 
 # Start AeroSpace at login
 start-at-login = true
@@ -31,6 +31,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
 
 # Possible values: tiles|accordion
+# 'tiles' shows all windows in a grid (Omarchy-style)
 default-root-container-layout = 'tiles'
 
 # Possible values: horizontal|vertical|auto
@@ -101,20 +102,23 @@ automatically-unhide-macos-hidden-apps = false
     # ┌─────────────────────────────────────────────────────────────┐
     # │                      🎛️  Layout Controls                    │
     # └─────────────────────────────────────────────────────────────┘
-    # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    alt-slash = 'layout tiles horizontal vertical'
-    alt-comma = 'layout accordion horizontal vertical'
+    cmd-j = 'layout tiles horizontal vertical'    # Toggle orientation
 
     # ┌─────────────────────────────────────────────────────────────┐
     # │                   🧭 Window Navigation                      │
     # └─────────────────────────────────────────────────────────────┘
-    # QWERTY navigation (hjkl)
+    # Arrow key navigation (Omarchy-style: Super+Arrows)
+    alt-left = 'focus left'
+    alt-down = 'focus down'
+    alt-up = 'focus up'
+    alt-right = 'focus right'
+
+    # QWERTY navigation (hjkl) - Alternative
     alt-h = 'focus left'
-    alt-j = 'focus down'
     alt-k = 'focus up'
     alt-l = 'focus right'
 
-    # Colemak navigation (neio)
+    # Colemak navigation (neio) - Alternative
     alt-n = 'focus left'
     alt-e = 'focus down'
     alt-i = 'focus up'
@@ -124,13 +128,19 @@ automatically-unhide-macos-hidden-apps = false
     # ┌─────────────────────────────────────────────────────────────┐
     # │                    🚚 Window Movement                       │
     # └─────────────────────────────────────────────────────────────┘
-    # QWERTY movement (hjkl)
+    # Arrow key movement (Omarchy-style: alt-shift+arrows to swap positions)
+    alt-shift-left = 'move left'
+    alt-shift-down = 'move down'
+    alt-shift-up = 'move up'
+    alt-shift-right = 'move right'
+
+    # QWERTY movement (hjkl) - Alternative
     alt-shift-h = 'move left'
     alt-shift-j = 'move down'
     alt-shift-k = 'move up'
     alt-shift-l = 'move right'
 
-    # Colemak movement (neio)
+    # Colemak movement (neio) - Alternative
     alt-shift-n = 'move left'
     alt-shift-e = 'move down'
     alt-shift-i = 'move up'
@@ -143,82 +153,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-equal = 'resize smart +50'
 
     # ┌─────────────────────────────────────────────────────────────┐
-    # │                 🏢 Workspace Navigation                     │
-    # └─────────────────────────────────────────────────────────────┘
-    # Numbered workspaces
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
-
-    # Named workspaces (A-Z)
-    alt-a = 'workspace A'    # 📱 Apps
-    alt-b = 'workspace B'    # 🌐 Browser
-    alt-c = 'workspace C'    # 💬 Chat
-    alt-d = 'workspace D'    # 📊 Data
-    alt-f = 'workspace F'    # 📁 Files
-    alt-g = 'workspace G'    # 🎮 Games
-    alt-m = 'workspace M'    # 🎵 Music
-    alt-p = 'workspace P'    # 🎨 Photo
-    alt-q = 'workspace Q'    # ❓ Quick
-    alt-r = 'workspace R'    # 📖 Read
-    alt-s = 'workspace S'    # ⚙️  System
-    alt-t = 'workspace T'    # 👥 Teams
-    alt-u = 'workspace U'    # 🔧 Utils
-    alt-v = 'workspace V'    # 📹 Video
-    alt-w = 'workspace W'    # 💻 Work
-    alt-x = 'workspace X'    # ❌ Extra
-    alt-y = 'workspace Y'    # 📝 Notes
-    alt-z = 'workspace Z'    # 🚀 Zen
-
-    # ┌─────────────────────────────────────────────────────────────┐
-    # │                📦 Move Window to Workspace                 │
-    # └─────────────────────────────────────────────────────────────┘
-    # Move to numbered workspaces
-    alt-shift-1 = 'move-node-to-workspace 1'
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
-    alt-shift-6 = 'move-node-to-workspace 6'
-    alt-shift-7 = 'move-node-to-workspace 7'
-    alt-shift-8 = 'move-node-to-workspace 8'
-    alt-shift-9 = 'move-node-to-workspace 9'
-
-    # Move to named workspaces
-    alt-shift-a = 'move-node-to-workspace A'
-    alt-shift-b = 'move-node-to-workspace B'
-    alt-shift-c = 'move-node-to-workspace C'
-    alt-shift-d = 'move-node-to-workspace D'
-    alt-shift-f = 'move-node-to-workspace F'
-    alt-shift-g = 'move-node-to-workspace G'
-    alt-shift-p = 'move-node-to-workspace P'
-    alt-shift-q = 'move-node-to-workspace Q'
-    alt-shift-r = 'move-node-to-workspace R'
-    alt-shift-s = 'move-node-to-workspace S'
-    alt-shift-t = 'move-node-to-workspace T'
-    alt-shift-u = 'move-node-to-workspace U'
-    alt-shift-v = 'move-node-to-workspace V'
-    alt-shift-w = 'move-node-to-workspace W'
-    alt-shift-x = 'move-node-to-workspace X'
-    alt-shift-y = 'move-node-to-workspace Y'
-    alt-shift-z = 'move-node-to-workspace Z'
-
-    # ┌─────────────────────────────────────────────────────────────┐
     # │                  🎯 Special Actions                         │
     # └─────────────────────────────────────────────────────────────┘
-    # Toggle fullscreen
-    alt-shift-m = 'fullscreen'
-
-    # Workspace navigation
-    alt-tab = 'workspace-back-and-forth'
-    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
     # Enter service mode for advanced operations
     alt-shift-semicolon = 'mode service'
 
@@ -253,19 +189,3 @@ automatically-unhide-macos-hidden-apps = false
 
 
 
-# ╭─────────────────────────────────────────────────────────────╮
-# │                🎯 APPLICATION AUTO-ASSIGNMENT               │
-# ╰─────────────────────────────────────────────────────────────╯
-# Automatically move applications to specific workspaces
-
-[[on-window-detected]]
-    if.app-id = 'com.github.wez.wezterm'
-    run = ['move-node-to-workspace W']            # 💻 Terminal → W (Work)
-
-[[on-window-detected]]
-    if.app-id = 'app.zen-browser.zen'
-    run = ['move-node-to-workspace Z']            # 🚀 Browser → Z (Zen)
-
-[[on-window-detected]]
-    if.app-id = 'com.microsoft.teams2'
-    run = ['layout floating', 'move-node-to-workspace T']  # 👥 Teams → T (floating)
