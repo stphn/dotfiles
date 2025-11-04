@@ -332,3 +332,10 @@ am() {
   arduino-cli monitor -p "$port" --config baudrate="$baud" | tee "$logfile"
 }
 ab() { arduino-boards; }
+
+# bun completions
+[ -s "/Users/stephane/.bun/_bun" ] && source "/Users/stephane/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

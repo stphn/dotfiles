@@ -226,12 +226,9 @@ return {
       -- graphql = {},
       html = { filetypes = { 'html', 'twig', 'hbs', 'mjml' } },
       ts_ls = {
-        -- optional: prefer external formatter (Prettier/Biome) instead of tsserver’s formatting
-        -- on new Neovim this is off by default; leaving empty is fine
+        -- Prefer Biome for formatting and linting
+        -- tsserver only provides type checking and completions
       },
-
-      -- Optional: ESLint LSP for diagnostics/fixes
-      eslint = {},
       -- cssls = {},
       -- ltex = {},
       -- texlab = {},

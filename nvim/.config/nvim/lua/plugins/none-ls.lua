@@ -14,8 +14,7 @@ return {
     require('mason-null-ls').setup {
       ensure_installed = {
         'checkmake',
-        'prettier', -- ts/js formatter
-        'eslint_d', -- ts/js linter
+        'biome', -- ts/js/json formatter and linter
         'shfmt',
         -- 'stylua', -- lua formatter; Already installed via Mason
         -- 'ruff', -- Python linter and formatter; Already installed via Mason
@@ -26,16 +25,14 @@ return {
 
     local sources = {
       diagnostics.checkmake,
-      formatting.prettier.with {
+      formatting.biome.with {
         filetypes = {
           'javascript',
           'javascriptreact',
           'typescript',
           'typescriptreact',
-          'html',
           'json',
-          'yaml',
-          'markdown',
+          'jsonc',
         },
       },
       formatting.stylua,
