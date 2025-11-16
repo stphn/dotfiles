@@ -1,4 +1,14 @@
 " ========================================
+" Vanilla Vim Configuration - Omarchy Themed
+" ========================================
+" Omarchy Philosophy: A beautiful system is a motivating system.
+" This configuration emphasizes cohesive theming, TUI aesthetics,
+" and keyboard-driven productivity.
+"
+" Theme Switching: Set VIM_THEME environment variable
+" Example: export VIM_THEME=nord (gruvbox, nord, tokyonight, catppuccin, everforest)
+"
+" ========================================
 " Options
 " ========================================
 
@@ -44,11 +54,17 @@ set shortmess+=c " Don't show completion menu messages
 set iskeyword+=- " Treat hyphenated words as whole words
 set showmatch " show the matching part of pairs [] {} and ()
 set laststatus=2 " Show status bar
-set statusline=%f " Path to the file
+
+" Minimalist statusline (omarchy TUI aesthetic)
+set statusline=
+set statusline+=\ %f " Path to the file
+set statusline+=%m " Modified flag
+set statusline+=%r " Readonly flag
 set statusline+=%= " Switch to the right side
-set statusline+=%l " Current line
-set statusline+=/ " Separator
-set statusline+=%L " Total lines
+set statusline+=%y " File type
+set statusline+=\ %l:%c " Line:Column
+set statusline+=\ %p%% " Percentage through file
+set statusline+=\
 
 
 " ========================================
@@ -90,11 +106,11 @@ nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Resize with arrows
-nnoremap <Up> :resize -2<CR>
-nnoremap <Down> :resize +2<CR>
-nnoremap <Left> :vertical resize -2<CR>
-nnoremap <Right> :vertical resize +2<CR>
+" Resize with arrows (Shift + arrow keys)
+nnoremap <S-Up> :resize -2<CR>
+nnoremap <S-Down> :resize +2<CR>
+nnoremap <S-Left> :vertical resize -2<CR>
+nnoremap <S-Right> :vertical resize +2<CR>
 
 " Navigate buffers
 nnoremap <Tab> :bnext<CR>
@@ -152,16 +168,66 @@ noremap <silent> <leader>e :Lex<CR>
 " Other
 " ========================================
 
+" ========================================
+" Omarchy Theming
+" ========================================
+" Philosophy: A beautiful system is a motivating system.
+" Omarchy emphasizes cohesive theming across all tools for productivity.
+" Supported themes: gruvbox, nord, tokyonight, catppuccin, everforest
+" Set VIM_THEME environment variable to override (e.g., export VIM_THEME=gruvbox)
+
 " Syntax highlighting
 syntax on
 
-" Colorscheme
-" colorscheme industry
-colorscheme wildcharm
+" Get theme from environment variable or use default
+let s:vim_theme = $VIM_THEME != '' ? $VIM_THEME : 'gruvbox'
+
+" Set background before loading colorscheme
 set background=dark
-" hi Normal ctermbg=NONE guibg=NONE
-" hi NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
-" hi VertSplit guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
+
+" Apply theme based on availability
+" Fallback to built-in schemes if plugin themes not available
+if s:vim_theme == 'gruvbox'
+    silent! colorscheme gruvbox
+    if !exists('g:colors_name') || g:colors_name != 'gruvbox'
+        colorscheme desert
+    endif
+elseif s:vim_theme == 'nord'
+    silent! colorscheme nord
+    if !exists('g:colors_name') || g:colors_name != 'nord'
+        colorscheme slate
+    endif
+elseif s:vim_theme == 'tokyonight'
+    silent! colorscheme tokyonight-night
+    if !exists('g:colors_name') || !match(g:colors_name, 'tokyonight')
+        colorscheme evening
+    endif
+elseif s:vim_theme == 'catppuccin'
+    silent! colorscheme catppuccin-mocha
+    if !exists('g:colors_name') || !match(g:colors_name, 'catppuccin')
+        colorscheme darkblue
+    endif
+elseif s:vim_theme == 'everforest'
+    silent! colorscheme everforest
+    if !exists('g:colors_name') || g:colors_name != 'everforest'
+        colorscheme wildcharm
+    endif
+else
+    " Default to wildcharm if unknown theme
+    colorscheme wildcharm
+endif
+
+" Minimalist TUI aesthetic: clean background for terminal transparency
+hi Normal ctermbg=NONE guibg=NONE
+hi NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+hi VertSplit guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
+hi EndOfBuffer ctermbg=NONE guibg=NONE
+hi LineNr ctermbg=NONE guibg=NONE
+hi CursorLineNr ctermbg=NONE guibg=NONE
+hi Pmenu ctermbg=NONE guibg=NONE
+hi PmenuSel ctermbg=NONE guibg=NONE
+hi Folded ctermbg=NONE guibg=NONE
 
 " Sync clipboard with OS
 if system('uname -s') == "Darwin\n"
