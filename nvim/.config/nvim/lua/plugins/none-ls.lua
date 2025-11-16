@@ -15,6 +15,7 @@ return {
       ensure_installed = {
         'checkmake',
         'biome', -- ts/js/json formatter and linter
+        'djlint', -- html template formatter (django/jinja)
         'shfmt',
         -- 'stylua', -- lua formatter; Already installed via Mason
         -- 'ruff', -- Python linter and formatter; Already installed via Mason
@@ -33,7 +34,12 @@ return {
           'typescriptreact',
           'json',
           'jsonc',
+          'html',
+          'css',
         },
+      },
+      formatting.djlint.with {
+        filetypes = { 'htmldjango' },
       },
       formatting.stylua,
       formatting.shfmt.with { args = { '-i', '4' } },
