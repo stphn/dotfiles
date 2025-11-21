@@ -11,7 +11,6 @@
 " ========================================
 " Options
 " ========================================
-
 set encoding=UTF-8
 set spelllang=en_us,de_de,fr_fr
 set nohlsearch " Disable highlight on search
