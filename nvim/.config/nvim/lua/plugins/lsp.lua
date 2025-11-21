@@ -173,7 +173,7 @@ return {
               library = vim.api.nvim_get_runtime_file('', true),
             },
             diagnostics = {
-              globals = { 'vim' },
+              globals = { 'vim', 'love' },
               disable = { 'missing-fields' },
             },
             format = {

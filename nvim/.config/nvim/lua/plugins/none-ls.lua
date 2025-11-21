@@ -14,7 +14,7 @@ return {
     require('mason-null-ls').setup {
       ensure_installed = {
         'checkmake',
-        'biome', -- ts/js/json formatter and linter
+        -- 'biome', -- ts/js/json formatter and linter; Installed globally via Bun
         'djlint', -- html template formatter (django/jinja)
         'shfmt',
         -- 'stylua', -- lua formatter; Already installed via Mason
