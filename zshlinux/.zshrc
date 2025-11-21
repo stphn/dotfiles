@@ -24,6 +24,9 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # ============================================================================
 # ENVIRONMENT VARIABLES
 # ============================================================================
+# User local binaries
+export PATH="$HOME/.local/bin:$PATH"
+
 # Node.js package manager setup
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
