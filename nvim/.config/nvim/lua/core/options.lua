@@ -52,3 +52,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Enable line wrapping for markdown and MDX files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown', 'mdx' },
+  group = vim.api.nvim_create_augroup('markdown-wrap', { clear = true }),
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+  end,
+})
+

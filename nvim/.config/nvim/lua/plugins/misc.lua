@@ -56,4 +56,9 @@ return {
       require('colorizer').setup()
     end,
   },
+  {
+    -- MDX support with treesitter and LSP
+    'davidmh/mdx.nvim',
+    config = true,
+  },
 }
